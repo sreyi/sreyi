@@ -1,0 +1,144 @@
+#include<stdio.h>
+#include<stdlib.h>
+void enqueue();
+void dequeue();
+void display();
+void count();
+void sum();
+void min();
+void max();
+void search();
+int queue[100];
+int rear=-1;
+int front=-1;
+int main()
+{
+    int choice;
+    while(1)
+    {
+        printf("1.Insert element to queue\n");
+        printf("2.delete element from queue\n");
+        printf("3.display all elements of queue\n");
+        printf("4.countof all elements in queue\n");
+        printf("5.sum of all elements in queue\n");
+        printf("6.minimum\n");
+        printf("7.maximum\n");
+        printf("8.searching element\n");
+        printf("9.exit\n");
+        
+        printf("enter the choice :\n");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1: enqueue();
+            break;
+            case 2: dequeue();
+            break;
+            case 3: display();
+            break;
+            case 4: count();
+            break;
+            case 5: sum();
+            break;
+            case 6: min();
+            break;
+            case 7: max();
+            break;
+            case 8: search();
+            break;
+            case 9: exit(0);
+            default: printf("wrong choice!!");
+        }
+    }
+    return 0;
+}
+void enqueue()
+{
+    int item;
+    if(rear==99)
+    printf("Queue overflow\n");
+    else
+    {
+        if(front==-1)
+    front=0;
+    printf("insert the element in queue :\n ");
+    scanf("%d",&item);
+    rear=rear+1;
+    queue[rear]=item;
+    }
+}
+void dequeue()
+{
+    if(front==-1||front>rear)
+    {
+        printf("queue is underflow\n");
+        return;
+    }
+    else
+    {
+    printf("element is deleted from queue is %d\n",queue[front]);
+    front =front+1;
+    }
+}
+void display()
+{
+    int i;
+    if(front==-1)
+    printf("queue is empty\n");
+    else
+    {
+    printf("queue is \n");
+    for(i=front;i<=rear;i++)
+    printf("%d\n",queue[i]);
+    printf("\n");
+    }
+}
+void count()
+{
+    int count=0;
+    for(int i=front;i<=rear;i++)
+    count++;
+    printf("count = %d\n",count);
+}
+void sum()
+{
+    int sum=0;
+    for(int i=front;i<=rear;i++)
+    sum=sum+queue[i];
+    printf("sum =%d\n",sum);
+}
+void min()
+{
+    int mini=queue[0];
+    for(int i=front;i<=rear;i++)
+    {
+    if(queue[i]<=mini)
+    
+    printf("minimum value = %d\n",queue[i]);
+    break;
+    }
+}
+void max()
+{
+    int max=queue[0];
+    for(int i=front;i<=rear;i++){
+    if(queue[i]>=max)
+    printf("maximum value = %d\n",queue[i]);
+    break;}
+}
+void search()
+{
+    int key,flag=0;
+    scanf("%d",&key);
+    for(int i=front;i<=rear;i++)
+    {
+        if(key==queue[i]){
+        flag=1;
+        printf("key is found\n");
+        break;
+        }
+    }
+    if(flag==0)
+    printf("key is not found");
+}
+
