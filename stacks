@@ -1,0 +1,136 @@
+#include<stdio.h>
+#include<stdlib.h>
+int top=-1,stack[100];
+void push();
+void pop();
+void display();
+void count();
+void sum();
+void min();
+void max();
+void search();
+int main()
+{
+    int ch;
+    while(1)
+    {
+        printf("\n*stack menu*");
+        printf("\n\n1.push\n2.pop\n3.display\n4.count\n5.sum\n6.minimum\n7.maximum\n8.search\n");
+        printf("\nEnter your choice(1-8)");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1: push();
+            break;
+            case 2: pop();
+            break;
+            case 3: display();
+            break;
+            case 4: count();
+            break;
+            case 5: sum();
+            break;
+            case 6: min();
+            break;
+            case 7: max();
+            break;
+            case 8: search();
+            break;
+            default:printf("\nwrong choice!");
+        }
+    }
+    return 0;
+}
+void push()
+{
+    int val;
+    if (top==99)
+    printf("\nstack is full");
+    else
+    {
+        printf("\nenter the element to be pushed");
+        scanf("%d",&val);
+        top=top+1;
+        stack[top]=val;
+    }
+}
+void pop()
+{
+    if(top==-1)
+    printf("\nstack is empty");
+    else
+    {
+        printf("\nelement to get deleted is %d",stack[top]);
+        top=top-1;
+    }
+}
+void display()
+{
+    if(top==-1)
+    printf("\nstack is null");
+    else
+    {
+    printf("\nstack is ..............");
+    for(int i=top;i>=0;i--)
+    printf("%d\n",stack[i]);
+    }
+}
+void count()
+{
+   int count=0;
+   for(int i=top;i>=0;i--)
+   count++;
+   printf("count =%d",count);
+}
+void sum()
+{
+   int sum=0;
+   for(int i=top;i>=0;i--)
+   {
+       sum=sum+stack[i];
+   }
+     printf("%d",sum);
+}
+void min()
+{
+    int i;
+    int mini=stack[0];
+   for(int i=top;i>=0;i--)
+   {
+       if(stack[i]<=mini)
+       mini=stack[i];
+        printf("minimum value = %d",stack[i]);
+        break;
+   }
+  
+   
+}
+void max()
+{
+    int i;
+    int max=stack[0];
+   for(int i=top;i>=0;i--)
+   {
+       if(stack[i]>=max)
+       max=stack[i];
+        printf("minimum value = %d",stack[i]);
+        break;
+   }
+}
+void search()
+{
+    printf("enter the key value to search\n");
+    int key,flag=0;
+    scanf("%d",&key);
+    for(int i=top;i>=0;i--)
+{
+    if(key==stack[i])
+    {
+        flag=1;
+    printf("key is found\n");
+    break;
+    }
+}
+if(flag==0)
+printf("key is not found\n");
+}
