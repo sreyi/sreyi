@@ -1,0 +1,61 @@
+//currently working on it please wait until it gets completed
+#include<stdio.h>
+#include<stdlib.h>
+// node creation
+struct node
+{
+    int data;
+    struct node* next;
+    struct node* prev;
+};
+// node insertion at front
+void insertFront(struct node** head,int data)
+{
+    //allocate memory to new node
+    struct node* new node=(struct node*)malloc(sizeof(struct node));
+    //assign data to new node
+    newnode->data=data;
+    //make new node as a head
+    newnode->next=(*head);
+    //assign null to prev
+    newnode->prev=NULL;
+    //previous of head(now head is the second node) is new node
+    if((*head=NULL)
+    (*head)->prev=newnode;
+    //head points to new node
+    (*head)=newnode;
+} 
+//insert a node after a specific newnode
+void insertAfter(struct node* prev_node,int data)
+{
+    //check previous node is NULL
+    if(prev_node==NULL)
+    printf("PREVIOUS NODE CANNOT BE NULL");
+    return;
+}
+//allocate memory for newnode
+struct node* newnode=(struct node*)malloc(sizeof(struct node));
+//assign data to new node
+newnode->data=data;
+//set next of new node to next of previous node
+newnode->next=prev_node->next;
+//set next of previos node to new node
+prev_node->next=newnode;
+//set previous of newnode to previous node
+newnode->prev=prev_node;
+//set prev of new node's next to new node
+if(newnode->next!=NULL)
+newnode->next->prev=newnode;
+}
+//insert a newnode at the end of the list
+void insertEnd(struct node** head,int data)
+{
+    //allocate memory for node
+    struct node* newnode=(structnode*)malloc(sizeof(structnode));
+    //assign data to new node
+    newnode->data=data;
+    //assign null to next of new node
+    newnode->next=NULL;
+    //store the head node temporarily(for later use)
+    
+}
