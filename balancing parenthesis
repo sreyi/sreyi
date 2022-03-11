@@ -1,0 +1,54 @@
+#include <stdio.h>
+#define size 50
+char a[size];
+int top=-1;
+void push(char ele);
+void pop();
+
+int main()
+{
+char infix[50],ch;
+int i=0;    
+
+printf("\nEnter an infix expression ");
+scanf("%s",infix);
+
+for(i=0; infix[i] != '\0'; i++)
+{
+     ch=infix[i];
+
+    if( ch=='(' || ch =='['|| ch == '{' )
+    {
+         
+         push(ch);
+    }
+     else if ((ch== ')'&& a[top] == '(')  ||  (ch == ']' && a[top] == '[') || (ch== '}' && a[top] == '{') )
+     
+    pop();
+   
+        else
+        {  
+            break;
+        }
+}
+
+if( top == -1 )
+printf("Exp is balanced");
+else
+printf("Exp is not balanced");
+
+}
+void push(char ele)
+{
+    a[++top]=ele;
+}
+void pop()
+{
+     top--;
+}
+
+
+
+
+
+
