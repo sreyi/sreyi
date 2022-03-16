@@ -1,85 +1,96 @@
-// A C program to demonstrate linked list based implementation of queue
-#include <stdio.h>
-#include <stdlib.h>
-
-// A linked list (LL) node to store a queue entry
-struct QNode {
-	int key;
-	struct QNode* next;
-};
-
-// The queue, front stores the front node of LL and rear stores the
-// last node of LL
-struct Queue {
-	struct QNode *front, *rear;
-};
-
-// A utility function to create a new linked list node.
-struct QNode* newNode(int k)
+#include<stdio.h>
+#include<stdlib.h>
+struct node
 {
-	struct QNode* temp = (struct QNode*)malloc(sizeof(struct QNode));
-	temp->key = k;
-	temp->next = NULL;
-	return temp;
-}
-
-// A utility function to create an empty queue
-struct Queue* createQueue()
-{
-	struct Queue* q = (struct Queue*)malloc(sizeof(struct Queue));
-	q->front = q->rear = NULL;
-	return q;
-}
-
-// The function to add a key k to q
-void enQueue(struct Queue* q, int k)
-{
-	// Create a new LL node
-	struct QNode* temp = newNode(k);
-
-	// If queue is empty, then new node is front and rear both
-	if (q->rear == NULL) {
-		q->front = q->rear = temp;
-		return;
-	}
-
-	// Add the new node at the end of queue and change rear
-	q->rear->next = temp;
-	q->rear = temp;
-}
-
-// Function to remove a key from given queue q
-void deQueue(struct Queue* q)
-{
-	// If queue is empty, return NULL.
-	if (q->front == NULL)
-		return;
-
-	// Store previous front and move front one node ahead
-	struct QNode* temp = q->front;
-
-	q->front = q->front->next;
-
-	// If front becomes NULL, then change rear also as NULL
-	if (q->front == NULL)
-		q->rear = NULL;
-
-	free(temp);
-}
-
-// Driver Program to test anove functions
+	int data;
+	struct node *next;
+	
+}*front=NULL,*rear=NULL;
+void enqueue(int );
+void dequeue();
+void display();
 int main()
 {
-	struct Queue* q = createQueue();
-	enQueue(q, 10);
-	enQueue(q, 20);
-	deQueue(q);
-	deQueue(q);
-	enQueue(q, 30);
-	enQueue(q, 40);
-	enQueue(q, 50);
-	deQueue(q);
-	printf("Queue Front : %d \n", q->front->key);
-	printf("Queue Rear : %d", q->rear->key);
+	int opp,value;
+	do
+	{
+		printf("\nchoose the opption =\n");
+		printf("1.Enqueue\n2.Dequeue\n3.Display\n4.Exit");
+		printf("\nEnter the choise =");
+		scanf("%d",&opp);
+		switch(opp)
+		{
+			case 1:
+				{
+					printf("\nEnter the element =");
+					scanf("%d",&value);
+					enqueue(value);
+					break;
+				}
+			case 2:
+				{
+					dequeue();
+					break;
+				}
+			case 3:
+				{
+					display();
+					break;
+				}
+			case 4:
+				{
+					exit(0);
+					break;
+				}
+		}
+	}while(1);
 	return 0;
+}
+void enqueue(int value)
+{
+	struct node *newnode;
+	newnode=(struct node*)malloc(sizeof(struct node));
+	newnode->data=value;
+	newnode->next=NULL;
+	if(front==NULL)
+	{
+		front=rear=newnode;
+	}
+	else
+	{
+		rear->next=newnode;
+		rear=newnode;
+	}
+}
+void dequeue()
+{
+	if(front==NULL)
+	{
+		printf("Que is empty");
+	}
+	else
+	{
+		struct node *temp=front;
+		front=front->next;
+		printf("\n Deleted element =%d\n",temp->data);
+		free(temp);
+	}
+}
+void display()
+{
+	struct node *temp=front;
+	if(front==NULL)
+	{
+		printf("Que is empty");
+	}
+	else
+	{
+		while(temp->next!=NULL)
+		{
+			printf("%d-->",temp->data);
+			temp=temp->next;
+		}
+	}
+		printf("%d-->NULL",temp->data);
+	
 }
