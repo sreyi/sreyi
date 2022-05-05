@@ -1,0 +1,111 @@
+//LINEAR PROBING 
+#include<stdio.h>
+#include<stdlib.h>
+#define size 10
+struct hash
+{	
+    
+    int hkey,key;
+    
+}ht[size];
+
+void insert()
+{
+	int index,ele;
+	printf("Enter the value of key\n");
+ 	scanf("%d",&ele);
+	index=ele%size;
+	if (ht[index].key == -1)
+	{
+		ht[index].key = ele;
+	}
+	else
+	{
+		for(index++; index<size; index++)
+		{
+			if(ht[index].key == -1)
+			{
+				ht[index].key = ele;
+	
+				break;
+			}
+				
+		}
+	}
+	
+}
+
+void search()
+{
+	int i,flag=0,ele,index;
+	printf("Enter the elelment");
+	scanf("%d",&ele);
+	index=ele%size;
+	if(ht[index].key==ele)
+	printf("key  found at index %d=",index);
+    else
+    {
+    	for(index++; index<size; index++)
+    		{
+    		if(ht[index].key == ele)
+    				{
+    				flag=1;
+    				break;
+    			    }
+    			}
+    	if(flag==1)
+    		printf("Key is Found");
+    	else
+    		printf("Key is NOT found");
+    }
+}
+
+
+void display()
+{
+	int i;
+	printf("\nThe elements in hash table are as follows\n");
+	printf("Hash key(index)\t Keys \n");
+	for(i=0;i<size;i++)
+printf("\nHash_table[%d] = %d",ht[i].hkey,ht[i].key);
+}
+
+void initially()
+{
+	int i;
+	for(i=0;i<size;i++)
+	{
+		ht[i].key = -1;	   
+		ht[i].hkey= i;
+	}
+}
+
+
+int main()
+{
+ 	int choice;
+	initially();
+ 	 	do
+ 	{
+ 		printf("\n** Main Menu **");
+		printf("\n1.Insert\n2.Search\n3.Display\n4.Exit\n");
+		printf("Enter your choice :");
+ 		scanf("%d",&choice);
+ 		switch(choice)
+ 		{
+ 			case 1:
+					insert();
+ 					break;
+ 			case 2:
+     				search();
+ 					break;		
+ 			case 3:
+ 					display();
+ 					break;
+			case 4:
+					exit(0);
+ 		}
+ 	}while(choice!=4);
+ 	
+ 	
+}
