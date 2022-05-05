@@ -1,0 +1,94 @@
+//QUADRATIC PROBING
+#include <stdio.h>
+#include<stdlib.h>
+#define size 10
+struct hash
+{
+    int hkey,key;
+}ht[size];
+void insert()
+{
+    int ele,index;
+    printf("eneter the key");
+    scanf("%d",&ele);
+    index=ele%size;
+    if(ht[index].key==-1)
+    ht[index].key=ele;
+    else
+    {
+        for(int j=1;j<size;j++)
+        {
+            int t=(index+j*j)%size;
+            if(ht[t].key==-1)
+            {
+            ht[t].key=ele;
+            break;
+            }
+        }
+    }
+}
+void search()
+{
+	int ele,index,j,flag=0;
+	printf("enter the key value to search\n");
+	scanf("%d",&ele);
+	index=ele%size;
+	if(ht[index].key==ele)
+	printf("key is found at index %d\n",index);
+	    else
+		{
+		for(int j=1;j<size;j++)
+        {
+            int t=(index+j*j)%size;
+            if(ht[t].key==ele)
+            {flag=1;
+            break;
+            }
+          }
+      }
+if(flag==1)
+printf("key value found at index %d=\n",j);
+else
+printf("key not found\n");
+}
+void initially()
+{
+    int i;
+    for(i=0;i<size;i++)
+    {
+        ht[i].key=-1;
+        ht[i].hkey=i;
+    }
+}
+void display()
+{
+    for(int i=0;i<size;i++)
+    printf("hash_table[%d]=%d\n",ht[i].hkey,ht[i].key);
+    }
+int main() {
+   
+    int choice;
+	initially();
+ 	 	do
+ 	{
+ 		printf("\n** Main Menu **");
+		printf("\n1.Insert\n2.Search\n3.Display\n4.Exit\n");
+		printf("Enter your choice :");
+ 		scanf("%d",&choice);
+ 		switch(choice)
+ 		{
+ 			case 1:
+					insert();
+ 					break;
+ 			case 2:
+     				search();
+ 					break;		
+ 			case 3:
+ 					display();
+ 					break;
+			case 4:
+					exit(0);
+ 		}
+ 	}while(choice!=4);
+ 	return 0;
+}
