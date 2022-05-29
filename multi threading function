@@ -1,0 +1,20 @@
+from time import sleep,perf_counter
+from threading import Thread
+def printN(n):
+    print("started loop")
+    for i in range(1,n+1):
+        sleep(1)
+        print("child",i)
+    print("done")
+if __name__=="__main__":
+    starttime=perf_counter()
+    t1=Thread(target=printN,args=(15, ))
+    t2=Thread(target=printN,args=(20, ))
+    t1.start()
+    t2.start()
+    t1.join()
+    t2.join()
+    print("completed")
+    endtime=perf_counter()
+    print("Time taken=",endtime-starttime)
+    
