@@ -1,0 +1,25 @@
+from time import *
+from threading import Thread
+import threading
+class Printing:
+    def __init__(self,n):
+        self.n=n
+    def printN(self):
+        print("started!!")
+        for i in range(1,self.n+1):
+            print("started")
+            sleep(1)
+            print("child",i)
+        print("done!!")
+if __name__=="__main__":
+    starttime=perf_counter()
+    obj1=Printing(15)
+    obj2=Printing(20)
+    t1=Thread(target=obj1.printN)
+    t2=Thread(target=obj2.printN)
+    t1.start()
+    t2.start()
+    t1.join()
+    t2.join()
+    endtime=perf_counter()
+    print("Time taken",endtime-starttime)
