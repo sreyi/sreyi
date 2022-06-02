@@ -1,0 +1,149 @@
+import random
+import time
+print("\nWelcome to Hangman game by KLU STUDENTS\n")
+name = input("Enter your name: ")
+print("Hello " + name + "! Best of Luck!")
+time.sleep(2)
+print("The game is about to start!\n Let's play Hangman!")
+time.sleep(3)
+class Hangman:
+    HANGMAN_PICS = (r'''
+        ┌───┐
+        │   │
+            │
+            │
+            │
+            │
+    ════════╛''', r'''
+        ┌───┐
+        │   │
+        O   │
+            │
+            │
+            │
+    ════════╛''', r'''
+        ┌───┐
+        │   │
+        O   │
+        |   │
+            │
+            │
+    ════════╛''', r'''
+        ┌───┐
+        │   │
+        O   │
+       /│   │
+            │
+            │
+    ════════╛''', r'''
+        ┌───┐
+        │   │
+        O   │
+       /│\  │
+            │
+            │
+    ════════╛''', r'''
+        ┌───┐
+        │   │
+        O   │
+       /│\  │
+       /    │
+            │
+    ════════╛''', r'''
+        ┌───┐
+        │   │
+        O   │
+       /│\  │
+       / \  │
+            │
+    ════════╛''')
+
+    def __init__(self, word):
+        """
+         Our constructor class that instantiates the game.
+        """
+        self.max_trials = len(self.HANGMAN_PICS) - 1
+        self.trials = self.max_trials
+        self.secret_word = word
+        self.secret_word_low = word.lower()
+        self.blanks = list('_' * len(self.secret_word))
+        self.found_letters = set()
+
+    def _spacer(self, length=50):
+        """
+         Returns a dash string to be used as a separator.
+        """
+        return '-' * length
+
+    @property
+    def _blanks_string(self):
+        """
+         Returns a string with blanks.
+        """
+        return ''.join(self.blanks)
+
+    def _draw_hangman(self):
+        """
+         Returns a string with the current position of the hangman.
+        """
+        return f'{self.HANGMAN_PICS[self.max_trials - self.trials]}\n'
+
+    def _guess_letter(self, letter):
+        """
+         Replaces the guessed letter in the blanks and adds the
+         letter to a set containing all the letters used so far.
+        """
+        for i, char in enumerate(self.secret_word_low):
+            if char == letter:
+                self.blanks[i] = letter
+                self.found_letters.add(letter)
+
+    def _valid_input(self, letter):
+        """
+         Checks if the string entered by the user has a length of 1
+         and if all characters in the string are in the alphabet.
+        """
+        return len(letter) != 1 or not letter.isalpha()
+
+    def _win(self):
+        """
+         Asigns a boolean value of True if the user guess the secret word.
+        """
+        return self._blanks_string == self.secret_word_low
+
+    def _play(self):
+        """
+         The game stage.
+        """
+        print(f'\nSecret word: {self._blanks_string}')
+        print(self._draw_hangman())
+        print(self._spacer())
+
+        while self.trials > 0 and not self._win():
+            letter = input('\nEnter a letter: ').lower()
+
+            if self._valid_input(letter):
+                print('The value entered is invalid.\n')
+            elif letter in self.found_letters:
+                print('This letter has already been entered. Enter another letter.\n')
+            elif letter in self.secret_word_low:
+                self.found_letters.add(letter)
+                self._guess_letter(letter)
+                print(self._blanks_string)
+            else:
+                self.found_letters.add(letter)
+                self.trials -= 1
+                print(f'\nYou missed and lost a life. You have {self.trials} trials left.')
+                print(self._draw_hangman())
+            print(self._spacer())
+
+        if self._win():
+            print(f'\nYou won. The secret word is: {self.secret_word}.')
+        else:
+            print(f'\nYou lost. The secret word is: {self.secret_word}.')
+if __name__ == '__main__':
+    with open('words.txt','r') as words:
+        secret_word = random.choice(words.read().split())
+        secret_word =''.join(secret_word)
+        game = Hangman(secret_word)
+game._play()
